@@ -3,36 +3,29 @@ import librosa.display as display
 import numpy as np
 from matplotlib import pyplot as plt
 
+notes = [
+    "music_box1.wav",
+    "music_box2.wav",
+    "music_box3.wav",
+    "music_box4.wav",
+    "music_box5.wav",
+]
 
-# def plot_matrix(matrix, output_image_path=None, vmin=None, vmax=None, title=None):
-#     """
-#     Plot a 2D matrix with viridis color map
-#
-#     :param matrix: 2D numpy array
-#     :return:
-#     """
-#     fig = plt.figure()
-#     ax = fig.add_subplot(111)
-#     if title is not None:
-#         ax.set_title(title)
-#     plt.imshow(matrix, vmin=vmin, vmax=vmax)
-#     plt.colorbar()
-#     if output_image_path:
-#         plt.savefig(str(output_image_path), dpi=200)
-#     else:
-#         plt.show()
-#     plt.close(fig)
+for note in notes:
+    samples, sample_rate = librosa.load(note, sr=None)
 
-samples, sample_rate = librosa.load("music_box1.wav", sr=None)
+    fourier_output_stuff = np.abs(librosa.stft(samples, n_fft=16*1024))
 
-fourier_output_stuff = np.abs(librosa.stft(samples, n_fft=16*1024))
+    frequencies = librosa.fft_frequencies(sr=sample_rate, n_fft=16*1024)
+    fourier_output_stuff = np.mean(fourier_output_stuff, axis=1)
 
-frequencies = librosa.fft_frequencies(sr=sample_rate, n_fft=16*1024)
-fourier_output_stuff = np.mean(fourier_output_stuff, axis=1)
+    dominant_harmonic_index = np.where(fourier_output_stuff == np.max(fourier_output_stuff))
+    print(frequencies[dominant_harmonic_index])
 
-plt.plot(frequencies, fourier_output_stuff)
-plt.show()
+    plt.plot(frequencies[:500], fourier_output_stuff[:500])
+    plt.show()
 
+# https://pages.mtu.edu/~suits/notefreqs.html
 
 
 # db = librosa.amplitude_to_db(fourier_output_stuff, ref=np.max)
