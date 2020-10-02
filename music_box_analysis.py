@@ -1,5 +1,5 @@
 import librosa
-import librosa.display as display
+from scipy.signal import find_peaks_cwt
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -23,80 +23,13 @@ for note in notes:
     dominant_harmonic_index = np.where(fourier_output_stuff == np.max(fourier_output_stuff))
     print(frequencies[dominant_harmonic_index])
 
+    # peaks = find_peaks_cwt(fourier_output_stuff, widths=np.ones(1000)) Tried finding more peaks with this, but little luck
+
     plt.plot(frequencies, fourier_output_stuff)
+    plt.xscale("log")
+    plt.yscale("log")
+    # plt.plot(peaks, fourier_output_stuff[peaks], "x")
     plt.title(note)
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("Amplitude")
     plt.show()
-
-# https://pages.mtu.edu/~suits/notefreqs.html
-
-
-# db = librosa.amplitude_to_db(fourier_output_stuff, ref=np.max)
-# display.specshow(db, sr=sample_rate, y_axis='log', x_axis='time')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-# print(samples)
-# print(sample_rate)
-#
-#
-#
-# import scipy.io.wavfile as wavfile
-# import scipy
-# import scipy.fftpack as fftpk
-# import numpy as np
-#
-# sample_rate2, samples2 = wavfile.read("music_box1.wav")
-#
-# print(samples2)
-# print(sample_rate2)
-#
-# fft1 = abs(scipy.fft(samples))
-# fft2 = abs(scipy.fft(samples2))
-#
-# frequencies = fftpk.fftfreq(len(fft2), (1.0/sample_rate2))
-#
-# plt.plot(frequencies[range(len(fft2)//2)], fft2[range(len(fft2)//2)])
-# plt.xlabel("Frequency  (Hz)")
-# plt.ylabel("Amplitude")
-# plt.show()
