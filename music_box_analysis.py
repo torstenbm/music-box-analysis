@@ -9,6 +9,7 @@ notes = [
     "music_box3.wav",
     "music_box4.wav",
     "music_box5.wav",
+    "music_box6.wav",
 ]
 
 for note in notes:
@@ -22,7 +23,9 @@ for note in notes:
     dominant_harmonic_index = np.where(fourier_output_stuff == np.max(fourier_output_stuff))
     print(frequencies[dominant_harmonic_index])
 
-    plt.plot(frequencies[:500], fourier_output_stuff[:500])
+    plt.plot(frequencies, fourier_output_stuff, note)
+    plt.xlabel("Frequency (Hz)")
+    plt.ylabel("Amplitude")
     plt.show()
 
 # https://pages.mtu.edu/~suits/notefreqs.html
