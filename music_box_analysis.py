@@ -23,7 +23,8 @@ for note in notes:
     dominant_harmonic_index = np.where(fourier_output_stuff == np.max(fourier_output_stuff))
     print(frequencies[dominant_harmonic_index])
 
-    plt.plot(frequencies, fourier_output_stuff, note)
+    plt.plot(frequencies, fourier_output_stuff)
+    plt.title(note)
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("Amplitude")
     plt.show()
