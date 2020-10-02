@@ -40,8 +40,11 @@ with log-scale I could see about 6-8 harmonics for each note.
 They differed from the fundamental by a factor of about `10**2` (100 times smaller).
 
 ###  Express the levels in dB.
+I tried calculating using `d = log(a/a0)`, but got 160db which must be wrong (`a = 10**3, a0 = 10**-5`).
+I guess I am not sure what the y-axis of my stft represents, and would love feedback on this.
 
 ### What is the uncertainty in your frequency estimates?
+
 
 ## What musical notes are played?
 According to https://pages.mtu.edu/~suits/notefreqs.html the musical notes are
