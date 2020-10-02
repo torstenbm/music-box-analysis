@@ -15,17 +15,17 @@ notes = [
 for note in notes:
     samples, sample_rate = librosa.load(note, sr=None)
 
-    fourier_output_stuff = np.abs(librosa.stft(samples, n_fft=16*1024))
+    spectrogram = np.abs(librosa.stft(samples, n_fft=16 * 1024))
 
     frequencies = librosa.fft_frequencies(sr=sample_rate, n_fft=16*1024)
-    fourier_output_stuff = np.mean(fourier_output_stuff, axis=1)
+    spectrogram = np.mean(spectrogram, axis=1)
 
-    dominant_harmonic_index = np.where(fourier_output_stuff == np.max(fourier_output_stuff))
+    dominant_harmonic_index = np.where(spectrogram == np.max(spectrogram))
     print(frequencies[dominant_harmonic_index])
 
     # peaks = find_peaks_cwt(fourier_output_stuff, widths=np.ones(1000)) Tried finding more peaks with this, but little luck
 
-    plt.plot(frequencies, fourier_output_stuff)
+    plt.plot(frequencies, spectrogram)
     plt.xscale("log")
     plt.yscale("log")
     # plt.plot(peaks, fourier_output_stuff[peaks], "x")
